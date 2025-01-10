@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '@store/user'
+import { loginApi } from '@/api/login'
 
 defineOptions({
   name: 'V-login'
@@ -20,6 +21,19 @@ const updateUserName = () => {
 const updateUserToken = () => {
   userStore.setToken(userToken.value)
 }
+const login = () => {
+  loginApi({
+    name: userName.value
+  })
+    .then((res) => {
+      userName.value = res.name
+      userToken.value = res.token
+      updateUserToken()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
 </script>
 
 <template>
@@ -29,6 +43,7 @@ const updateUserToken = () => {
   <br />
   token:
   <input type="text" v-model="userToken" @input="updateUserToken" />
+  <button @click="login">login</button>
 </template>
 
 <style scoped></style>
