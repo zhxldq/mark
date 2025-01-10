@@ -13,7 +13,8 @@
       // 路径映射,配合别名使用
       "@/*": ["src/*"],
       "@build/*": ["build/*"],
-      "#/*": ["types/*"]
+      "#/*": ["types/*"],
+      "@store/*": ["src/store/modules/*"]
     },
 
     /* Bundler mode */
@@ -49,3 +50,4 @@
   ],
   "references": [{ "path": "./tsconfig.node.json" }] // 为文件进行不同配置
 }
+
