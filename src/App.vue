@@ -1,13 +1,9 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const test = ref('22')
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>
-    初始化项目
-    <span>{{ test }}</span>
+    <router-link to="/"> 去首页 </router-link> 丨 <router-link to="/login"> 去登录 </router-link>
+    <router-view />
   </div>
 </template>
 
