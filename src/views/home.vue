@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '@store/user'
+import MyInput from '@/views/MyInput.vue'
 
 defineOptions({
   name: 'V-home'
@@ -15,7 +16,10 @@ const { namePic, token } = storeToRefs(userStore)
 </script>
 
 <template>
-  <div>Hello: {{ namePic }}, your name is {{ username }}, your token is {{ token }}</div>
+  <div>
+    Hello: {{ namePic }}, your name is {{ username }}, your token is {{ token }}
+    <MyInput></MyInput>
+  </div>
 </template>
 
 <style scoped></style>
