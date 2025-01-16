@@ -31,7 +31,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         resolvers: [ElementPlusResolver()]
       }),
       Components({
-        resolvers: ElementPlusResolver({ importStyle: 'sass' })
+        resolvers: ElementPlusResolver()
       })
     ],
     resolve: {

@@ -1,25 +1,33 @@
-<script setup lang="ts">
-import { computed } from 'vue'
-import { storeToRefs } from 'pinia'
-import { useUserStore } from '@store/user'
-import MyInput from '@/views/MyInput.vue'
-
-defineOptions({
-  name: 'V-home'
-})
-
-const userStore = useUserStore()
-// 获取state使用computed或者使用storeToRefs，直接使用不具备响应式（拿到的永远是初次的值）
-const username = computed(() => userStore.userInfo.name)
-// 获取getter使用storeToRefs，或者直接使用，在模板里 userStore.namePic
-const { namePic, token } = storeToRefs(userStore)
-</script>
-
 <template>
-  <div>
-    Hello: {{ namePic }}, your name is {{ username }}, your token is {{ token }}
-    <MyInput></MyInput>
-  </div>
+  <my-input v-model="inputValue" ref="myInputRef" :name="'lyw'" :year="18" @input="onInput">
+    <!-- 动态插槽定义 -->
+    <template #prefix>
+      <span>Prefix Content</span>
+    </template>
+    <template #suffix="{ year }">
+      <span>END: {{ year }}</span>
+    </template>
+    <template #default="{ name }">
+      <p>Default Content: {{ name }}</p>
+    </template>
+  </my-input>
+  <div>当前输入的值是：{{ inputValue }}</div>
 </template>
 
-<style scoped></style>
+<script lang="ts" setup>
+import MyInput from '@/components/MyInput.vue'
+import { onMounted } from 'vue'
+import { ref } from 'vue'
+
+const inputValue = ref('')
+const myInputRef = ref()
+function onInput(value: string) {
+  console.log('Input value:', value)
+}
+onMounted(() => {
+  // 光标聚焦
+  // 避免ref 链式调用，比如 this.$refs.tableRef.$refs.table.clearSort()
+  // 前提：子组件把方法暴露
+  myInputRef.value.focus()
+})
+</script>
